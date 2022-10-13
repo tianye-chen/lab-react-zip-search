@@ -4,7 +4,9 @@ import "./App.css";
 function City(props) {
     return (
         <div class="card mt-5">
-            <div class="card-header">City: {props.city}</div>
+            <div class="card-header">
+                {props.city}, {props.state}
+            </div>
             <div class="card-body">
                 <ul>
                     <li>State: {props.state}</li>
@@ -33,7 +35,7 @@ function ZipSearchField(props) {
 }
 
 function App() {
-    const [inputValue, setZipCode] = React.useState("");
+    const [zipCode, setZipCode] = React.useState("");
     const [cities, setCities] = React.useState([]);
 
     function onZipCodeChange(event) {
@@ -41,7 +43,7 @@ function App() {
     }
 
     React.useEffect(() => {
-        fetch(`http://ctp-zip-api.herokuapp.com/zip/${inputValue}`)
+        fetch(`http://ctp-zip-api.herokuapp.com/zip/${zipCode}`)
             .then((res) => {
                 if (res.ok) {
                     return res.json();
@@ -52,9 +54,9 @@ function App() {
             .then((json) => {
                 setCities(json);
             });
-    }, [inputValue]);
+    }, [zipCode]);
 
-    console.log(inputValue);
+    console.log(zipCode);
 
     return (
         <div className="App">
